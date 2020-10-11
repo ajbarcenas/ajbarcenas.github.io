@@ -4,5 +4,10 @@ table, th, td {
 }
 
 body {
-    background-color: lightcyan
+    background-color: lightcyan;
 }
+
+p {
+    font-family: georgia, garamond, serif;
+}
+
