@@ -7,7 +7,7 @@ body {
     background-color: lightcyan;
 }
 
-p {
+table, footer, a, header, h3, h1, p {
     font-family: georgia, garamond, serif;
 }
 
