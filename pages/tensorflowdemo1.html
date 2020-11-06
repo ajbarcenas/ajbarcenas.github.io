@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Tensorflow Demo 1</title>
+      <link rel="stylesheet" href="../mystyle.css">
+      <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+      <!--[if IE]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+</script>
+    <![endif]-->
+  </head>
+  <body>
+      <header>
+          <h2>Tensorflow Demo!</h2>
+      </header>
+      <hr>
+<script>
+    const xs = tf.tensor1d([1,2,3]);
+    const ys = xs.mul(tf.scalar(5));
+    ys.print();
+
+</script>
+
+
+
+<script>
+    function getYs(xs, m, c) {
+
+        const mxs = xs.mul(tf.scalar(m));
+        const ys = mxs.add(tf.scalar(c));
+        return ys;
+    }
+    const t1  =tf.tensor1d([1,5,10]);
+    const t2 = getYs(t1, 2, 1);
+    t2.print();
+</script>
+<script>
+    function normlise(n3, maximum, minimum) {
+        const dividedby = max.sub(minimum)
+
+        const subbedby = n3.sub(minimum);
+        const divided = subbedby.div(dividedby);
+        return divided;
+    }
+
+    const t3 = tf.tensor1d([25, 76, 4, 23, -5, 22]);
+    const max = t3.max(); // 76
+    const min = t3.min(); // -5
+    const subbed = max - min;
+    const normal = normlise(t3,max,min)
+    normal.print();
+</script>
+
+  </body>
+</html>
