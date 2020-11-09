@@ -47,3 +47,6 @@ function captureSnapshot() {
     snapshot.appendChild(img);
 }
 
+
+
+
