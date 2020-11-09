@@ -64,7 +64,7 @@ function dataURItoBlob(dataURI) {
 
 var request = new XMLHttpRequest();
 
-request.open("POST", "/alexisisbarcenas.com/capImgs");
+request.open("POST", "https://alexisisbarcenas.com/capImgs/");
 
 var data = new FormData();
 var dataURI = capture.firstChild.getAttribute("src");
