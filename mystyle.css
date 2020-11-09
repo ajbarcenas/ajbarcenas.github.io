@@ -40,3 +40,14 @@ video {
     z-index: 2;
     font-size: 12px;
 }
+
+#capture {
+    display: none;
+}
+
+
+#snapshot {
+    display: inline-block;
+    width: 500px;
+    height: 500px;
+}
