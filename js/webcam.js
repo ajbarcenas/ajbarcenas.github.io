@@ -47,6 +47,29 @@ function captureSnapshot() {
     snapshot.appendChild(img);
 }
 
+function dataURItoBlob(dataURI) {
+    var bytestring = atob(dataURI.split(',') [1]);
+    var mimeString = dataURI.split(',')[0].split(':')[1].split[';'][0];
+
+    var buffer = new ArrayBuffer(bytestring.length);
+    var data = new DataView(buffer);
+
+    for (var i = 0; i < bytestring.length; i++) {
+        data.setUint8(i, bytestring.charCodeAt(i));
+}
+
+    return new Blob([buffer], {type: mimeString});
+}
 
 
+var request = new XMLHttpRequest();
 
+request.open("POST", "/alexisisbarcenas.com/capImgs");
+
+var data = new FormData();
+var dataURI = capture.firstChild.getAttribute("src");
+var imageData = dataURItoBlob(dataURI);
+
+data.append("image", imageData, "myimage");
+
+request.send(data);
