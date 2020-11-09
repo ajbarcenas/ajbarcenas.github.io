@@ -11,3 +11,32 @@ table, footer, a, header, h3, h1, p {
     font-family: georgia, garamond, serif;
 }
 
+video {
+    display: block;
+}
+
+.removed {
+    display: none
+}
+
+.invisible {
+    opacity: 1.0;
+}
+
+.camView {
+    position: relative;
+    float: left;
+    width: calc(100% - 20px);
+    margin: 10px;
+    cursor: pointer;
+}
+
+.camView p {
+    position: absolute;
+    padding: 5px;
+    background-color: rgb(255,111,0,0.85);
+    color: #FFF;
+    border: 1px dashed rgba(255,255,255,0.7);
+    z-index: 2;
+    font-size: 12px;
+}
