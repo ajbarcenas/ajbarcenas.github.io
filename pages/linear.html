@@ -21,8 +21,12 @@
         const sampleDataset = houseData.take(10);
         const dataArray = await sampleDataset.toArray();
         console.log(dataArray);
-        }
 
+        const points = houseData.map(record => ({
+            x: record.sqft_living,
+            y: record.price,
+        }));
+            console.log(await points.toArray());
 
         run();
       </script>
