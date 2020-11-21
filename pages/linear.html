@@ -16,6 +16,18 @@
       <hr>
 
       <script type="text/javascript">
+        async function plot(pointsArray, featureName) {
+            tfvis.render.scatterplot (
+            {name: `${featureName} vs House Price`},
+            {values: [pointsArray], series: ["original"]},
+            {
+                xLabel: featureName,
+                yLabel: "Price",
+            }
+            )
+        }
+
+
         async function run () {
         const houseData = tf.data.csv("https://alexisisbarcenas.com/capImgs/kc_house_data.csv");
         const sampleDataset = houseData.take(10);
