@@ -29,6 +29,21 @@
             )
         }
 
+        function normalise(tensor) {
+            const min = tensor.min();
+            const max = tensor.max();
+            const normalisedTensor = tensor.sub(min).div(max.sub(min));
+            return{ normalisedTensor,
+                   min,
+                   max
+                  };
+        }
+
+        function denormalise(tensor, min, max) {
+            const denormalisedTensor = tensor.mul(max.sub(min)).add(min);
+            return denormalisedTensor;
+        }
+
 
         async function run () {
         const houseData = tf.data.csv("https://alexisisbarcenas.com/capImgs/kc_house_data.csv");
@@ -50,8 +65,19 @@
         //Labels outputs
         const labelValues = await points.map(p => p.y).toArray();
         const labelTensor = tf.tensor2d(labelValues, [labelValues.length, 1]);
+
         featureTensor.print();
         labelTensor.print();
+
+
+        const normalisedFeature = normalise(featureTensor);
+        const normalisedLabel = normalise(labelTensor);
+
+        normalisedFeature.tensor.print();
+        normalisedLabel.tensor.print();
+
+        denormalise(normalisedFeature.tensor, normalisedFeature.min, normalisedFeature.max).print();
+        denormalise(normalisedLabel.tensor, normalisedLabel.min, normalisedLabel.max).print();
         }
 
         run();
