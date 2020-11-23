@@ -33,7 +33,7 @@
             const min = tensor.min();
             const max = tensor.max();
             const normalisedTensor = tensor.sub(min).div(max.sub(min));
-            return{ normalisedTensor,
+            return{ tensor: normalisedTensor,
                    min,
                    max
                   };
@@ -46,38 +46,38 @@
 
 
         async function run () {
+        //Import from data from CSV
         const houseData = tf.data.csv("https://alexisisbarcenas.com/capImgs/kc_house_data.csv");
-        const sampleDataset = houseData.take(10);
-        const dataArray = await sampleDataset.toArray();
-        console.log(dataArray);
 
-        const points = houseData.map(record => ({
+        const pointsDataset = houseData.map(record => ({
             x: record.sqft_living,
             y: record.price,
         }));
-        plot(await points.toArray(), "Square feet");
+        const points = await pointsDataset.toArray();
+        if (points.length % 2 !== 0) { // If odd number of elements
+            points.pop();
+        }
+        tf.util.shuffle(points);
+        plot(points, "Square feet");
 
-        // Features inputs
-        const featureValues = await points.map(p => p.x).toArray();
+        // Extract Features (inputs)
+        const featureValues = points.map(p => p.x);
         const featureTensor = tf.tensor2d(featureValues, [featureValues.length, 1]);
 
 
-        //Labels outputs
-        const labelValues = await points.map(p => p.y).toArray();
+        //Extract the Labels (outputs)
+        const labelValues = await points.map(p => p.y);
         const labelTensor = tf.tensor2d(labelValues, [labelValues.length, 1]);
 
-        featureTensor.print();
-        labelTensor.print();
 
-
+        // Normalize the features and the labels.
         const normalisedFeature = normalise(featureTensor);
         const normalisedLabel = normalise(labelTensor);
 
-        normalisedFeature.tensor.print();
-        normalisedLabel.tensor.print();
-
-        denormalise(normalisedFeature.tensor, normalisedFeature.min, normalisedFeature.max).print();
-        denormalise(normalisedLabel.tensor, normalisedLabel.min, normalisedLabel.max).print();
+        //normalisedFeature.tensor.print();
+        const [trainingFeatureTensor, testingFeatureTensor] = tf.split(normalisedFeature.tensor, 2);
+        const [trainingLabelTensor, testingLabelTensor] = tf.split(normalisedLabel.tensor, 2);
+        trainingFeatureTensor.print(true);
         }
 
         run();
