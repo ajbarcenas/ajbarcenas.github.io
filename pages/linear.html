@@ -69,10 +69,14 @@
         const labelValues = await points.map(p => p.y);
         const labelTensor = tf.tensor2d(labelValues, [labelValues.length, 1]);
 
+        featureTensor.print();
+
 
         // Normalize the features and the labels.
         const normalisedFeature = normalise(featureTensor);
         const normalisedLabel = normalise(labelTensor);
+
+        normalisedFeature.tensor.print();
 
         //normalisedFeature.tensor.print();
         const [trainingFeatureTensor, testingFeatureTensor] = tf.split(normalisedFeature.tensor, 2);

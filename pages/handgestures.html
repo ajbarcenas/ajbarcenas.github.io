@@ -168,6 +168,7 @@
             // Load the model
             model = await tf.loadLayersModel( mobilenet );
             model = createTransferModel( model );
+            const saveResult = await model.save('downloads://my-model');
             await setupWebcam();
             webcam = await tf.data.webcam( document.getElementById( "webcam" ) );
             // Setup prediction every 200 ms
